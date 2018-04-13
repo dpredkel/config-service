@@ -1,0 +1,34 @@
+server:
+  port: ${PORT:8888}
+
+security:
+  user:
+    name: "{cipher}6c627b546202f13ffa9e3edf39974a3bfca5d615f58dcbfc23065661968b13c5"
+    password: "{cipher}00c58dd052b4cc84df302495a0a704fa259ffde549421461fbf39e510a01ff2948972715f4c251c402c3046de81eaf02"
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/pdapekel/config-repo
+# it's an open account, so we don't need credentials
+#          username: ...
+#          password: ...
+# it's possible to keep properties in different directories, but it's need to change config server for every new service
+#          search-paths: auth-service, account-service
+        encrypt:
+          enabled: false
+
+#client eureka settings
+eureka:
+  user:
+    name: "{cipher}6c627b546202f13ffa9e3edf39974a3bfca5d615f58dcbfc23065661968b13c5"
+    password: "{cipher}75efd89c7c4d79220a5b3f35e9ad692a69c820fa0b99e9c48ae9433d45ba016db808ab9dce78382235e529291f8aa0be"
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.user.name}:${eureka.user.password}@localhost:8761/eureka/
